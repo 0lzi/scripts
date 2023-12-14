@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# EXPORT WEBHOOK_URL="webhookurl" in root .bashrc
+# export WEBHOOK_URL="webhookurl" in root .bashrc
 
 # Source the bashrc in script
 source /root/.bashrc
