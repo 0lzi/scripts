@@ -3,7 +3,6 @@
 #Script to download a cloud image and create a vm template
 
 # Default Values
-core_count="2"
 memory="1024"
 bridge_id="vmbr0"
 storage="local-lvm"
@@ -11,13 +10,26 @@ storage="local-lvm"
 # Get url from user:
 read -p "What cloud image do you want to use? : " cloud_url
 read -p "What VMID do you want to use? : " vmid
-read -p "How many cores? : " core_count
-read -p "How much memory? : " memory
-read -p "Template name? (Default $(basename $cloud_url)) : " vm_name
-read -p "Bridge name (Default vmbr0): " bridge_id
+read -p "How many cores? (Default: '1') : " core_count
+if [$core_count == ""]; then
+    core_count="1"
+fi
+read -p "How much memory? (Default: '1024'): " memory
+if [$memory == ""]; then
+    memory="1024"
+fi
+read -p "Template name? : " vm_name
+read -p "Bridge name (Default: vmbr0): " bridge_id
+if [$bridge_id == ""]; then
+  bridge_id="vmbr0"
+fi
 read -p "Define storage (Default local-lvm) : " storage
-
+if [$storage == ""]; then
+  storage="local-lvm"
+fi
+# File name fore cleanup
 image_file=$(basename $cloud_url)
+
 # Get cloud image
 wget $cloud_url
 
